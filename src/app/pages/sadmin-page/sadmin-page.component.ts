@@ -3,6 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { SadminService } from '../../services/sadmin.service';
 import { Franchise } from '../../../../../grocery-master/models/franchise.js';
+import { User } from '../../../../../grocery-master/models/users.js';
 
 @Component({
   selector: 'app-sadmin-page',
@@ -15,7 +16,11 @@ export class SadminPageComponent implements OnInit {
   isAdmin: boolean;
   isProfile: boolean;
 
+  currentFranchiseId: string;
+  currentAdminId: string;
+
   franchise: Franchise[];
+  admins: User[];
 
 
   isNewFranchise: boolean;
@@ -67,6 +72,7 @@ export class SadminPageComponent implements OnInit {
 
   constructor(private userService: UserService, private sadminService: SadminService) {
     this.Franchise();
+    this.userService.setUserId('grocerysos@gmail.com');
   }
 
   ngOnInit() {
@@ -85,6 +91,9 @@ export class SadminPageComponent implements OnInit {
     this.isFranchise = false;
     this.isAdmin = true;
     this.isProfile = false;
+    return this.sadminService.fetchAllAdmins().subscribe((adminDoc: User[]) => {
+      this.admins = adminDoc;
+    });
   }
 
   Profile() {
@@ -95,15 +104,38 @@ export class SadminPageComponent implements OnInit {
 
   NewAdmin() {
     this.isNewAdmin = !this.isNewAdmin;
+    this.newAdmin.reset();
   }
 
-  EditAdminByCode(pincode: number, _id: string) {
+  EditAdminById(_id: string) {
     this.EditAdmin();
-
+    this.currentAdminId = _id;
+    return this.sadminService.fetchAdmin(_id).subscribe((adminDoc: any) => {
+      console.log(adminDoc);
+      if (adminDoc) {
+        this.editAdmin.patchValue({
+          'fname': adminDoc.fname,
+          'lname': adminDoc.lname,
+          'whatsApp': adminDoc.contact[0].whatsApp,
+          'email': adminDoc.email,
+          'password': adminDoc.password,
+          //'doorNo': adminDoc.address[0].doorNo,
+          //'addressLine1': adminDoc.address[0].addressLine1,
+          //'addressLine2': adminDoc.address[0].addressLine2,
+          //'city': adminDoc.address[0].city,
+          //'district': adminDoc.address[0].district,
+          //'pinCode': adminDoc.address[0].pinCode,
+          //'country': adminDoc.address[0].country,
+          'mobile': adminDoc.contact[0].mobile
+        });
+      }
+    });
   }
 
   EditAdmin() {
     this.isEditAdmin = !this.isEditAdmin;
+    this.editAdmin.reset();
+    this.currentAdminId = null;
   }
 
   NewFranchise() {
@@ -113,11 +145,15 @@ export class SadminPageComponent implements OnInit {
 
   EditFranchiseById(_id: string) {
     this.EditFranchise();
+    this.currentFranchiseId = _id;
     return this.sadminService.fetchFranchise(_id).subscribe((franchiseDoc: any) => {
       if (franchiseDoc) {
-        console.log(franchiseDoc.pinCode);
         this.editFranchise.patchValue({
-          'pinCode': franchiseDoc.pinCode
+          'pinCode': franchiseDoc.pinCode,
+          'city': franchiseDoc.city,
+          'district': franchiseDoc.district,
+          'country': franchiseDoc.country,
+          'franchiseName': franchiseDoc.franchiseName
         });
       }
     });
@@ -125,24 +161,41 @@ export class SadminPageComponent implements OnInit {
 
   EditFranchise() {
     this.isEditFranchise = !this.isEditFranchise;
+    this.editFranchise.reset();
+    this.currentFranchiseId = null;
   }
 
   newAdminSave() {
     this.newAdmin.addControl('role', new FormControl(null));
     this.newAdmin.get('role').setValue('franchiseAdmin');
+    return this.sadminService.newAdmin(this.newAdmin.value).subscribe((res: any) => {
+      console.log(res);
+      this.NewAdmin();
+      this.Admin();
+    });
   }
 
   editAdminSave() {
-
+    return this.sadminService.editAdmin(this.editAdmin.value, this.currentAdminId).subscribe((res: any) => {
+      console.log(res);
+    });
   }
 
   newFranchiseSave() {
     this.newFranchise.addControl('createdBy', new FormControl(null));
     this.newFranchise.get('createdBy').setValue(this.userService.getUserId());
+    this.sadminService.newFranchise(this.newFranchise.value).subscribe((res) => {
+      console.log(res);
+      this.NewFranchise();
+      this.Franchise();
+    });
   }
 
   editFranchiseSave() {
-
+    return this.sadminService.editFranchise(this.editFranchise.value, this.currentFranchiseId).subscribe((res: any) => {
+      console.log(res);
+      this.EditFranchise();
+    });
   }
 
 }

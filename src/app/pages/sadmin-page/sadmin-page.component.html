@@ -39,70 +39,15 @@
       </button>
     </div>
     <section class="grocery-section-row" *ngIf="this.isAdmin" >
-      <div class="grocery-admin-card" (click)="this.EditAdmin()">
+      <div class="grocery-admin-card" *ngFor="let item of this.admins"  (click)="this.EditAdminById(item._id)">
         <div class="grocery-admin-img">
           <img src="../../../assets/profile.png">
         </div>
         <div class="grocery-admin-name">
-          <span>Nanthagopal </span><span>S</span>
+          <span>{{item.fname}} </span><span>{{item.lname}}</span>
         </div>
         <div class="grocery-admin-contact">
-          Whatsapp : <span>8940918732</span>
-        </div>
-      </div>
-      <div class="grocery-admin-card">
-        <div class="grocery-admin-img">
-          <img src="../../../assets/profile.png">
-        </div>
-        <div class="grocery-admin-name">
-          <span>Nanthagopal </span><span>S</span>
-        </div>
-        <div class="grocery-admin-contact">
-          Whatsapp : <span>8940918732</span>
-        </div>
-      </div>
-      <div class="grocery-admin-card">
-        <div class="grocery-admin-img">
-          <img src="../../../assets/profile.png">
-        </div>
-        <div class="grocery-admin-name">
-          <span>Nanthagopal </span><span>S</span>
-        </div>
-        <div class="grocery-admin-contact">
-          Whatsapp : <span>8940918732</span>
-        </div>
-      </div>
-      <div class="grocery-admin-card">
-        <div class="grocery-admin-img">
-          <img src="../../../assets/profile.png">
-        </div>
-        <div class="grocery-admin-name">
-          <span>Nanthagopal </span><span>S</span>
-        </div>
-        <div class="grocery-admin-contact">
-          Whatsapp : <span>8940918732</span>
-        </div>
-      </div>
-      <div class="grocery-admin-card">
-        <div class="grocery-admin-img">
-          <img src="../../../assets/profile.png">
-        </div>
-        <div class="grocery-admin-name">
-          <span>Nanthagopal </span><span>S</span>
-        </div>
-        <div class="grocery-admin-contact">
-          Whatsapp : <span>8940918732</span>
-        </div>
-      </div>
-      <div class="grocery-admin-card">
-        <div class="grocery-admin-img">
-          <img src="../../../assets/profile.png">
-        </div>
-        <div class="grocery-admin-name">
-          <span>Nanthagopal </span><span>S</span>
-        </div>
-        <div class="grocery-admin-contact">
-          Whatsapp : <span>8940918732</span>
+          Whatsapp : <span>{{item.contact[0].whatsApp}}</span>
         </div>
       </div>
     </section>
@@ -138,27 +83,27 @@
       </div>
       <div class="grocery-modal-contents" [formGroup]="newFranchise">
         <div class="grocery-modal-input-holder">
-          <input formControlname="pinCode" class="input" type="text" placeholder="pin code">
+          <input formControlName="pinCode" class="input" type="text" placeholder="pin code">
           <label for="pincode" class="grocery-input-label">pin code</label>
         </div>
         <div class="grocery-modal-input-holder">
-          <input formControlname="city" class="input" type="text" placeholder="city">
+          <input formControlName="city" class="input" type="text" placeholder="city">
           <label for="city" class="grocery-input-label">city</label>
         </div>
         <div class="grocery-modal-input-holder">
-          <input formControlname="district" class="input" type="text" placeholder="district">
+          <input formControlName="district" class="input" type="text" placeholder="district">
           <label for="district" class="grocery-input-label">district</label>
         </div>
         <div class="grocery-modal-input-holder">
-          <input formControlname="country" class="input" type="text" placeholder="country">
+          <input formControlName="country" class="input" type="text" placeholder="country">
           <label for="country" class="grocery-input-label">country</label>
         </div>
         <div class="grocery-modal-input-holder">
-          <input formControlname="franchiseName" class="input" type="text" placeholder="Franchise Name">
+          <input formControlName="franchiseName" class="input" type="text" placeholder="Franchise Name">
           <label for="franchiseName" class="grocery-input-label">Franchise Name</label>
         </div>
       </div>
-      <button class="grocery-modal-footer is-success">
+      <button class="grocery-modal-footer is-success" (click)="this.newFranchiseSave()">
         Save
       </button>
     </div>
@@ -180,27 +125,27 @@
       </div>
       <div class="grocery-modal-contents" [formGroup]="editFranchise">
         <div class="grocery-modal-input-holder">
-          <input formControlname="pinCode" class="input" type="text" placeholder="pin code">
+          <input formControlName="pinCode" class="input" type="text" placeholder="pin code">
           <label for="pincode" class="grocery-input-label">pin code</label>
         </div>
         <div class="grocery-modal-input-holder">
-          <input formControlname="city" class="input" type="text" placeholder="city">
+          <input formControlName="city" class="input" type="text" placeholder="city">
           <label for="city" class="grocery-input-label">city</label>
         </div>
         <div class="grocery-modal-input-holder">
-          <input formControlname="district" class="input" type="text" placeholder="district">
+          <input formControlName="district" class="input" type="text" placeholder="district">
           <label for="district" class="grocery-input-label">district</label>
         </div>
         <div class="grocery-modal-input-holder">
-          <input formControlname="country" class="input" type="text" placeholder="country">
+          <input formControlName="country" class="input" type="text" placeholder="country">
           <label for="country" class="grocery-input-label">country</label>
         </div>
         <div class="grocery-modal-input-holder">
-          <input formControlname="franchiseName" class="input" type="text" placeholder="Franchise Name">
+          <input formControlName="franchiseName" class="input" type="text" placeholder="Franchise Name">
           <label for="franchiseName" class="grocery-input-label">Franchise Name</label>
         </div>
       </div>
-      <button class="grocery-modal-footer is-success">
+      <button class="grocery-modal-footer is-success" (click)="editFranchiseSave()">
         Save
       </button>
     </div>
@@ -219,27 +164,27 @@
       </div>
       <div class="grocery-modal-contents" [formGroup]="newAdmin">
         <div class="grocery-modal-input-holder">
-          <input formControlname="fname" class="input" type="text" placeholder="first name">
+          <input formControlName="fname" class="input" type="text" placeholder="first name">
           <label for="firstName" class="grocery-input-label">first name</label>
         </div>
         <div class="grocery-modal-input-holder">
-          <input formControlname="lname" class="input" type="text" placeholder="last name">
+          <input formControlName="lname" class="input" type="text" placeholder="last name">
           <label for="lastName" class="grocery-input-label">last name</label>
         </div>
         <div class="grocery-modal-input-holder">
-          <input formControlname="whatsApp" class="input" type="text" placeholder="whatsapp">
+          <input formControlName="whatsApp" class="input" type="text" placeholder="whatsapp">
           <label for="whatsapp" class="grocery-input-label">whatsapp</label>
         </div>
         <div class="grocery-modal-input-holder">
-          <input formControlname="email" class="input" type="text" placeholder="e-mail">
+          <input formControlName="email" class="input" type="text" placeholder="e-mail">
           <label for="email" class="grocery-input-label">e-mail</label>
         </div>
         <div class="grocery-modal-input-holder">
-          <input formControlname="password  " class="input" type="text" placeholder="password">
+          <input formControlName="password" class="input" type="text" placeholder="password">
           <label for="password" class="grocery-input-label">password</label>
         </div>
       </div>
-      <button class="grocery-modal-footer is-success">Save</button>
+      <button class="grocery-modal-footer is-success" (click)="this.newAdminSave()">Save</button>
     </div>
   </div>
 </section>
@@ -260,59 +205,59 @@
       </div>
       <div class="grocery-modal-contents" [formGroup]="editAdmin">
         <div class="grocery-modal-input-holder">
-          <input formControlname="fname" class="input" type="text" placeholder="first name">
+          <input formControlName="fname" class="input" type="text" placeholder="first name">
           <label for="firstName" class="grocery-input-label">first name</label>
         </div>
         <div class="grocery-modal-input-holder">
-          <input formControlname="lname" class="input" type="text" placeholder="last name">
+          <input formControlName="lname" class="input" type="text" placeholder="last name">
           <label for="lastName" class="grocery-input-label">last name</label>
         </div>
         <div class="grocery-modal-input-holder">
-          <input formControlname="whatsApp" class="input" type="text" placeholder="whatsapp">
+          <input formControlName="whatsApp" class="input" type="text" placeholder="whatsapp">
           <label for="whatsapp" class="grocery-input-label">whatsapp</label>
         </div>
         <div class="grocery-modal-input-holder">
-          <input formControlname="email" class="input" type="text" placeholder="e-mail">
+          <input formControlName="email" class="input" type="text" placeholder="e-mail">
           <label for="email" class="grocery-input-label">e-mail</label>
         </div>
         <div class="grocery-modal-input-holder">
-          <input formControlname="password" class="input" type="text" placeholder="password">
+          <input formControlName="password" class="input" type="text" placeholder="password">
           <label for="password" class="grocery-input-label">password</label>
         </div>
         <div class="grocery-modal-input-holder">
-          <input formControlname="doorNo" class="input" type="text" placeholder="door no">
+          <input formControlName="doorNo" class="input" type="text" placeholder="door no">
           <label for="doorNo" class="grocery-input-label">door no</label>
         </div>
         <div class="grocery-modal-input-holder">
-          <input formControlname="addressLine1" class="input" type="text" placeholder="address line 1">
+          <input formControlName="addressLine1" class="input" type="text" placeholder="address line 1">
           <label for="addressLine1" class="grocery-input-label">address line 1</label>
         </div>
         <div class="grocery-modal-input-holder">
-          <input formControlname="addressLine2" class="input" type="text" placeholder="address line 2 [optional]">
+          <input formControlName="addressLine2" class="input" type="text" placeholder="address line 2 [optional]">
           <label for="addressLine2" class="grocery-input-label">address line 2</label>
         </div>
         <div class="grocery-modal-input-holder">
-          <input formControlname="city" class="input" type="text" placeholder="city">
+          <input formControlName="city" class="input" type="text" placeholder="city">
           <label for="city" class="grocery-input-label">city</label>
         </div>
         <div class="grocery-modal-input-holder">
-          <input formControlname="district" class="input" type="text" placeholder="district">
+          <input formControlName="district" class="input" type="text" placeholder="district">
           <label for="district" class="grocery-input-label">district</label>
         </div>
         <div class="grocery-modal-input-holder">
-          <input formControlname="pincode" class="input" type="text" placeholder="postal code">
+          <input formControlName="pinCode" class="input" type="text" placeholder="postal code">
           <label for="pincode" class="grocery-input-label">postal code</label>
         </div>
         <div class="grocery-modal-input-holder">
-          <input formControlname="country" class="input" type="text" placeholder="country">
+          <input formControlName="country" class="input" type="text" placeholder="country">
           <label for="country" class="grocery-input-label">country</label>
         </div>
         <div class="grocery-modal-input-holder">
-          <input formControlname="mobile" class="input" type="text" placeholder="mobile [Alt]">
+          <input formControlName="mobile" class="input" type="text" placeholder="mobile [Alt]">
           <label for="mobile" class="grocery-input-label">mobile</label>
         </div>
       </div>
-      <button class="grocery-modal-footer is-success">Save</button>
+      <button class="grocery-modal-footer is-success" (click)="this.editAdminSave()">Save</button>
     </div>
   </div>
 </section>
