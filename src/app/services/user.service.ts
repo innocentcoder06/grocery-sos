@@ -17,4 +17,16 @@ export class UserService {
     return this.webReqService.post('users/login', data);
   }
 
+  setUserId(userId: string) {
+    localStorage.setItem('userId', userId);
+  }
+
+  getUserId() {
+    return localStorage.getItem('userId');
+  }
+
+  deleteUserId() {
+    localStorage.removeItem('userId');
+  }
+
 }
