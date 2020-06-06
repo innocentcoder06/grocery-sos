@@ -23,16 +23,16 @@
         <span>Add Product</span>
       </button>
     </div>
-    <section class="grocery-section-row">
-      <div class="grocery-product-card" (click)="this.EditProduct()">
+    <section class="grocery-section-row" *ngIf="this.vendorInventory" >
+      <div class="grocery-product-card" *ngFor="let item of this.vendorInventory.products"  (click)="this.EditProduct(item)">
         <div class="grocery-product-img">
           <img src="../../../assets/tomato.png">
         </div>
         <div class="grocery-product-name">
-          <span>Tomato</span>
+          <span>{{item.productName}}</span>
         </div>
         <div class="grocery-product-category">
-          <span>Vegetables</span>
+          <span>{{item.productCategory}}</span>
         </div>
       </div>
     </section>
@@ -51,33 +51,33 @@
         </div>
         <div class="grocery-modal-title">New product</div>
       </div>
-      <div class="grocery-modal-contents">
+      <div class="grocery-modal-contents" [formGroup] = "newProduct">
         <div class="grocery-modal-input-holder">
-          <input class="input" type="text" placeholder="product name">
+          <input formControlName = "productName" class="input" type="text" placeholder="product name">
           <label for="productName" class="grocery-input-label">product name</label>
         </div>
         <div class="grocery-modal-input-holder">
-          <input class="input" type="text" placeholder="category">
+          <input formControlName = "productCategory" class="input" type="text" placeholder="category">
           <label for="productCategory" class="grocery-input-label">category</label>
         </div>
         <div class="grocery-modal-input-holder">
-          <input class="input" type="text" placeholder="unit">
+          <input formControlName = "unit" class="input" type="text" placeholder="unit">
           <label for="unit" class="grocery-input-label">unit</label>
         </div>
         <div class="grocery-modal-input-holder">
-          <input class="input" type="text" placeholder="quantity">
+          <input formControlName = "quantity" class="input" type="text" placeholder="quantity">
           <label for="quantity" class="grocery-input-label">quantity</label>
         </div>
         <div class="grocery-modal-input-holder">
-          <input class="input" type="text" placeholder="stock">
+          <input formControlName = "stockCnt" class="input" type="text" placeholder="stock">
           <label for="stockCnt" class="grocery-input-label">stock</label>
         </div>
         <div class="grocery-modal-input-holder">
-          <input class="input" type="text" placeholder="mrp [optional]">
+          <input formControlName = "MRP" class="input" type="text" placeholder="mrp [optional]">
           <label for="mrp" class="grocery-input-label">mrp</label>
         </div>
       </div>
-      <button class="grocery-modal-footer is-success">Save</button>
+      <button class="grocery-modal-footer is-success" (click)="newProductSave()">Save</button>
     </div>
   </div>
 </section>
@@ -92,37 +92,37 @@
         </div>
         <div class="grocery-modal-title">Edit Product</div>
       </div>
-      <div class="grocery-modal-delete">
+      <div class="grocery-modal-delete" (click)="deleteProduct()">
         <button class="grocery-modal-delete-btn"><span class="span-cls">Delete</span><i
             class="fas fa-trash-alt"></i></button>
       </div>
-      <div class="grocery-modal-contents">
+      <div class="grocery-modal-contents" [formGroup]="editProduct">
         <div class="grocery-modal-input-holder">
-          <input class="input" type="text" placeholder="product name">
+          <input formControlName="productName" class="input" type="text" placeholder="product name">
           <label for="productName" class="grocery-input-label">product name</label>
         </div>
         <div class="grocery-modal-input-holder">
-          <input class="input" type="text" placeholder="category">
+          <input formControlName="productCategory" class="input" type="text" placeholder="category">
           <label for="productCategory" class="grocery-input-label">category</label>
         </div>
         <div class="grocery-modal-input-holder">
-          <input class="input" type="text" placeholder="unit">
+          <input formControlName="unit" class="input" type="text" placeholder="unit">
           <label for="unit" class="grocery-input-label">unit</label>
         </div>
         <div class="grocery-modal-input-holder">
-          <input class="input" type="text" placeholder="quantity">
+          <input formControlName="quantity" class="input" type="text" placeholder="quantity">
           <label for="quantity" class="grocery-input-label">quantity</label>
         </div>
         <div class="grocery-modal-input-holder">
-          <input class="input" type="text" placeholder="stock">
+          <input formControlName="stockCnt" class="input" type="text" placeholder="stock">
           <label for="stockCnt" class="grocery-input-label">stock</label>
         </div>
         <div class="grocery-modal-input-holder">
-          <input class="input" type="text" placeholder="mrp [optional]">
+          <input formControlName="MRP" class="input" type="text" placeholder="mrp [optional]">
           <label for="mrp" class="grocery-input-label">mrp</label>
         </div>
       </div>
-      <button class="grocery-modal-footer is-success">Save</button>
+      <button class="grocery-modal-footer is-success" (click)="editProductSave()">Save</button>
     </div>
   </div>
 </section>

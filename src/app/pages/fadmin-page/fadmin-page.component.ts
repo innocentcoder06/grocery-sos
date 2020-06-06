@@ -114,4 +114,8 @@ export class FadminPageComponent implements OnInit {
     this.isEditVendor = !this.isEditVendor;
   }
 
+  newVendorSave() {
+
+  }
+
 }

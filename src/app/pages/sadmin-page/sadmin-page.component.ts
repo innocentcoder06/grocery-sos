@@ -178,6 +178,7 @@ export class SadminPageComponent implements OnInit {
   editAdminSave() {
     return this.sadminService.editAdmin(this.editAdmin.value, this.currentAdminId).subscribe((res: any) => {
       console.log(res);
+      this.EditAdmin();
     });
   }
 
